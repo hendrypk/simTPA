@@ -172,6 +172,7 @@
     <!-- SB Admin 2 JavaScript -->
     @vite([
         // 'resources/js/sb-admin-2.js',
+        'resources/js/app.js',
         'resources/js/sb-admin-2.min.js',
         'resources/vendor/chart.js/Chart.min.js',
     ])
