@@ -13,7 +13,7 @@
     <title>@yield('title','TPQ At-Taqwa')</title>
 
     @vite([
-        // 'resources/vendor/fontawesome-free/css/all.min.css',
+        'resources/vendor/fontawesome-free/css/all.min.css',
         'resources/css/sb-admin-2.min.css',
         'resources/css/sb-admin-2.css'
     ])
