@@ -1,4 +1,8 @@
 @import 'tailwindcss';
+@import './sb-admin-2.css';
+@import './sb-admin-2.min.css';
+@import '../vendor/fontawesome-free/css/all.min.css';
+
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';

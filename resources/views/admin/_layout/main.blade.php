@@ -13,9 +13,10 @@
     <title>@yield('title','TPQ At-Taqwa')</title>
 
     @vite([
-        'resources/vendor/fontawesome-free/css/all.min.css',
-        'resources/css/sb-admin-2.min.css',
-        'resources/css/sb-admin-2.css'
+        // 'resources/vendor/fontawesome-free/css/all.min.css',
+        // 'resources/css/sb-admin-2.min.css',
+        // 'resources/css/sb-admin-2.css'
+        'resources/css/app.css'
     ])
     
     
@@ -24,7 +25,7 @@
     <!-- Bootstrap CSS -->
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap JS Bundle (Popper.js included) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> --}} --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> --}}
 
 
 </head>
