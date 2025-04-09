@@ -35,7 +35,7 @@
                     <i class="fas fa-fw fa-address-book"></i>
                     <span>Kepegawaian</span>
                 </a>
-                <div id="employment" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="employment" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="cards.html">Pengajar</a>
                         <a class="collapse-item" href="cards.html">Pengurus</a>
@@ -49,7 +49,7 @@
                     <i class="fas fa-fw fa-wallet"></i>
                     <span>Keuangan</span>
                 </a>
-                <div id="finance" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="finance" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="buttons.html">Donasi</a>
                         <a class="collapse-item" href="cards.html">Transaksi</a>

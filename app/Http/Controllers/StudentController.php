@@ -31,7 +31,7 @@ class StudentController extends Controller
         $year = Carbon::now()->year; // Tahun sekarang (4 digit)
         $yearShort = substr($year, -2); // Ambil 2 digit terakhir
     
-        $totalAll = Student::count()->whereNull('deleted_at'); // Semua santri
+        $totalAll = Student::whereNull('deleted_at')->count(); // Semua santri
         $totalThisYear = Student::whereYear('register_date', $year)->whereNull('deleted_at')->count(); // Santri tahun ini
     
         // Format angka jadi 3 digit (pakai str_pad)
@@ -39,7 +39,7 @@ class StudentController extends Controller
         $totalThisYearFormatted = str_pad($totalThisYear, 3, '1', STR_PAD_LEFT);
     
         $nis = $yearShort . $totalAllFormatted . $totalThisYearFormatted;
-        
+        // dd($request->id);
         Student::updateOrCreate([
             'id' => $request->id
         ], [

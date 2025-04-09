@@ -15,17 +15,19 @@
     @vite([
         // 'resources/vendor/fontawesome-free/css/all.min.css',
         // 'resources/css/sb-admin-2.min.css',
-        // 'resources/css/sb-admin-2.css'
+        // 'resources/css/sb-admin-2.css',
         'resources/css/app.css'
     ])
     
     
     <!-- Remix Icon -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap JS Bundle (Popper.js included) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> --}}
+    <!-- Bootstrap 5 CSS -->
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> --}}
+
 
 
 </head>
@@ -35,7 +37,6 @@
 
 <body id="page-top">
     
-
     <!-- Page Wrapper -->
     <div id="wrapper">
         
@@ -48,12 +49,6 @@
         
                         <!-- Begin Page Content -->
                         <div class="container-fluid">
-                            <!-- Page Heading -->
-                            {{-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                <h1 class="h3 mb-0 text-gray-800">@yield('page_heading')</h1>
-                                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                        class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                            </div> --}}
                             @yield('content')
                         </div>
                         <!-- /.container-fluid -->
@@ -65,7 +60,7 @@
                     <footer class="sticky-footer bg-white">
                         <div class="container my-auto">
                             <div class="copyright text-center my-auto">
-                                <span>Copyright &copy; Your Website 2021</span>
+                                <span>Copyright &copy; Hendry PK | 2025</span>
                             </div>
                         </div>
                     </footer>
