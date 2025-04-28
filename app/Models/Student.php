@@ -19,7 +19,8 @@ class Student extends Model
         'school_id',
         'class_id',
         'parent_number',
-        'register_date'
+        'register_date',
+        'status'
     ];
 
     public function class () {
@@ -28,5 +29,9 @@ class Student extends Model
 
     public function school () {
         return $this->belongsTo(Option::class, 'school_id');
+    }
+
+    public function statuses () {
+        return $this->belongsTo(Option::class, 'status');
     }
 }

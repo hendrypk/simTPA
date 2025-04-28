@@ -26,12 +26,14 @@
                             <th>No.</th>
                             <th>NIS</th>
                             <th>Nama</th>
+                            <th>Alamat</th>
                             <th>TTL</th>
                             <th>Kelas</th>
                             <th>Nama Wali</th>
-                            <th>WhatsApp</th>
+                            <th>WhatsApp Wali</th>
                             <th>Tanggal Masuk</th>
-                            <th>Asal Sekolah</th>
+                            <th>Sekolah</th>
+                            <th>Status</th>
                             <th>Edit</th>
                             <th>Hapus</th>
                         </tr>
@@ -39,26 +41,34 @@
                     @foreach($students as $no=>$data)
                         <tbody>
                             <td>{{ $no+1 }}</td>
-                            <td>{{ $data->nis }}</td>
+                            <td>{{ $data->cid }}</td>
                             <td>{{ $data->name }}</td>
+                            <td>{{ $data->address }}</td>
                             <td>{{ $data->place_birth }}, {{ $data->date_birth }}</td>
-                            <td>{{ $data->class->name }}</td>
-                            <td>{{ $data->father_name }}</td>
-                            <td>{{ $data->parent_number }}</td>
+                            <td>{{ $data->classes->name }}</td>
+                            <td>{{ $data->guardian_name }}</td>
+                            <td>
+                                <a href="https://wa.me/62{{ ltrim($data->guardian_number, '0') }}" target="_blank">
+                                    {{ $data->guardian_number }}
+                                </a>
+                            </td>
                             <td>{{ $data->register_date }}</td>
-                            <td>{{ $data->school->name }}</td>
+                            <td>{{ $data->schools->name }}</td>
+                            <td>{{ $data->statuses->name }}</td>
                             <td>
                                 <button type="button" id="openModalStudentBtn" class="btn btn-sm btn-primary openModalStudentBtn btn-edit"
                                     data-id="{{ $data->id }}"
-                                    data-nis="{{ $data->nis }}"
+                                    data-cid="{{ $data->cid }}"
                                     data-name="{{ $data->name }}"
+                                    data-address="{{ $data->address }}"
                                     data-place_birth="{{ $data->place_birth }}"
                                     data-date_birth="{{ $data->date_birth }}"
                                     data-class_id="{{ $data->class_id }}"
-                                    data-father_name="{{ $data->father_name }}"
-                                    data-parent_number="{{ $data->parent_number }}"
+                                    data-guardian_name="{{ $data->guardian_name }}"
+                                    data-guardian_number="{{ $data->guardian_number }}"
                                     data-register_date="{{ $data->register_date }}"
                                     data-school_id="{{ $data->school_id }}"
+                                    data-status="{{ $data->status_id }}"
                                     data-url="{{ route('student.submit', $data->id) }}">
                                     <i class="ri-pencil-fill"></i>
                                 </button>
@@ -80,61 +90,72 @@
             button.addEventListener('click', function () {
                 const classOptions = @json($class);
                 const schoolOptions = @json($school);
+                const statusOptions = @json($status);
                 const fields = [
                     { name: 'id', type: 'hidden' },
                     { label: 'Nama', name: 'name', type: 'text' },
+                    { label: 'Alamat', name: 'address', type: 'text', placeholder: 'Contoh: Bandung' },
                     { label: 'Tempat Lahir', name: 'place_birth', type: 'text', placeholder: 'Contoh: Bandung' },
                     { label: 'Tanggal Lahir', name: 'date_birth', type: 'date' },
-                    {
-                        label: 'Kelas', name: 'class_id', type: 'select', options: classOptions
-                    },
-                    { label: 'Nama Wali', name: 'father_name', type: 'text' },
-                    { label: 'WhatsApp', name: 'parent_number', type: 'text', placeholder: '08xxxxxxxxxx' },
+                    { label: 'Kelas', name: 'class_id', type: 'select', options: classOptions },
+                    { label: 'Nama Wali', name: 'guardian_name', type: 'text' },
+                    { label: 'WhatsApp', name: 'guardian_number', type: 'text', placeholder: '08xxxxxxxxxx' },
                     { label: 'Tanggal Masuk', name: 'register_date', type: 'date' },
-                    {
-                        label: 'Sekolah', name: 'school_id', type: 'select', options: schoolOptions
-                    },
+                    { label: 'Sekolah', name: 'school_id', type: 'select', options: schoolOptions },
+                    { label: 'Status', name: 'status', type: 'select', options: statusOptions },
                 ];
 
                 const entityFields = document.getElementById('entityFields');
-                entityFields.innerHTML = '';
+                entityFields.innerHTML = ''; // Kosongkan dulu
 
-                fields.forEach(field => {
-                    const div = document.createElement('div');
-                    div.classList.add('mb-3');
-
-                    let value = button.dataset[field.name] || ''; // ambil nilai dari data-* kalau ada
-
-                    let inputHTML = '';
-
-                    if (field.type === 'select') {
-                        inputHTML += `<label class="form-label">${field.label}</label>`;
-                        inputHTML += `<select class="form-control" name="${field.name}" required>`;
-                        inputHTML += `<option value="">-- Pilih ${field.label} --</option>`;
-                        field.options.forEach(opt => {
-                        const selected = (opt.id == value) ? 'selected' : '';
-                        inputHTML += `<option value="${opt.id}" ${selected}>${opt.name}</option>`;
-                    });
-
-                        // field.options.forEach(opt => {
-                        //     const selected = (opt.name === value || opt.id == value) ? 'selected' : '';
-                        //     inputHTML += `<option value="${opt.id}" ${selected}>${opt.name}</option>`;
-                        // });
-                        inputHTML += `</select>`;
-                } else if (field.type === 'hidden') {
-                    inputHTML = `<input type="hidden" name="${field.name}" value="${value}">`;
-                
-                    } else {
-                        inputHTML = `
-                            <label class="form-label">${field.label}</label>
-                            <input type="${field.type}" class="form-control" name="${field.name}" 
-                                placeholder="${field.placeholder || ''}" value="${value}" required>
-                        `;
+                let row = document.createElement('div');
+                row.className = 'row';
+                fields.forEach((field, index) => {
+                    if (field.type === 'hidden') {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = field.name;
+                        row.appendChild(input);
+                        return;
                     }
 
-                    div.innerHTML = inputHTML;
-                    entityFields.appendChild(div);
+                    const col = document.createElement('div');
+                    col.className = 'col-md-6 mb-3';
+
+                    const label = document.createElement('label');
+                    label.className = 'form-label';
+                    label.innerText = field.label;
+                    col.appendChild(label);
+
+                    let input;
+                    if (field.type === 'select') {
+                        input = document.createElement('select');
+                        input.name = field.name;
+                        input.className = 'form-control';
+
+                        field.options.forEach(opt => {
+                            const option = document.createElement('option');
+                            option.value = opt.value;
+                            option.innerText = opt.label;
+                            input.appendChild(option);
+                        });
+
+                    } else {
+                        input = document.createElement('input');
+                        input.type = field.type;
+                        input.name = field.name;
+                        input.className = 'form-control';
+                        input.placeholder = field.placeholder || '';
+                    }
+
+                    col.appendChild(input);
+                    row.appendChild(col);
+
+                    // Tambahkan row baru setiap 2 kolom (optional, Bootstrap handle otomatis)
                 });
+
+                entityFields.appendChild(row);
+
 
                 // Judul modal disesuaikan
                 const isEdit = button.classList.contains('btn-edit');

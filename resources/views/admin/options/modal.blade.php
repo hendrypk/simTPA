@@ -1,4 +1,4 @@
-<div class="modal fade" id="addEntityModal" tabindex="-1" aria-labelledby="modalEntityLabel">
+<div class="modal fade" id="addEntityModal" tabindex="-1" aria-labelledby="modalEntityLabel" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

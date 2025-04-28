@@ -11,7 +11,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Beranda -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Beranda</span></a>
@@ -19,43 +19,39 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('student.index') }}">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Data Santri</span></a>
+                    <i class="fas fa-fw fa-user-graduate"></i>
+                    <span>Santri</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('donors.index') }}">
                     <i class="fas fa-fw fa-people-arrows fa-bounce"></i>
-                    <span>Data Donatur</span></a>
+                    <span>Donatur</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('employees.index') }}">
+                    <i class="fas fa-fw fa-users"></i>
+                    {{-- <i class="fas fa-fw fa-people-arrows fa-bounce"></i> --}}
+                    <span>Karyawan</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('trx.donor.index') }}">
+                    <i class="fas fa-hand-holding-droplet"></i>
+                    <span>Donasi</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('trx.index') }}">
+                    <i class="fas fa-fw fa-wallet"></i>
+                    <span>Transaksi</span></a>
             </li>
             
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#employment"
-                    aria-expanded="true" aria-controls="employment">
-                    <i class="fas fa-fw fa-address-book"></i>
-                    <span>Kepegawaian</span>
-                </a>
-                <div id="employment" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="cards.html">Pengajar</a>
-                        <a class="collapse-item" href="cards.html">Pengurus</a>
-                    </div>
-                </div>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#finance"
-                    aria-expanded="true" aria-controls="finance">
-                    <i class="fas fa-fw fa-wallet"></i>
-                    <span>Keuangan</span>
-                </a>
-                <div id="finance" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">Donasi</a>
-                        <a class="collapse-item" href="cards.html">Transaksi</a>
-                        <a class="collapse-item" href="cards.html">Rencana Keuangan</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="{{ route('donors.index') }}">
+                    <i class="fas fa-fw fa-chart-simple"></i>
+                    <span>Rencana Keuangan</span></a>
             </li>
 
             <li class="nav-item">

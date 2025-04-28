@@ -23,6 +23,11 @@ class Option extends Model
     public const TYPE_SCHOOL  = 'school';
     public const TYPE_PACKAGE = 'package';
     public const TYPE_WALLET = 'wallet';
+    public const TYPE_STUDENT_STATUS = 'student status';
+    public const TYPE_DONATUR_STATUS = 'donatur status';
+    public const TYPE_EMPLOYEE_STATUS = 'employee status';
+    public const TYPE_EMPLOYEE_CATEGORY = 'employee category';
+
 
     // (Optional) Array untuk digunakan di form dropdown, dsb
     public const TYPES = [
@@ -32,5 +37,9 @@ class Option extends Model
         self::TYPE_SCHOOL  => 'school',
         self::TYPE_PACKAGE => 'package',
         self::TYPE_WALLET => 'wallet',
+        self::TYPE_STUDENT_STATUS => 'student status',
+        self::TYPE_DONATUR_STATUS => 'donatur status',
+        self::TYPE_EMPLOYEE_STATUS => 'employee status',
+        self::TYPE_EMPLOYEE_CATEGORY => 'employee category',
     ];
 }

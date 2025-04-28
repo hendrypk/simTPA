@@ -6,8 +6,8 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
                     </div>
 
                     <!-- Content Row -->
@@ -21,7 +21,81 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Total Pemasukan</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $trx['total_debet'] }}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Total Pengeluaran</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $trx['total_credit'] }}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Total Donasi</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $trx['total_donate'] }}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Sisa Saldo</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $trx['remaining'] }}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Total Donatur</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $contact['total_donor'] }}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -38,8 +112,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Total Pengeluaran</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                                Total Vendor</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $contact['total_vendor'] }}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -59,7 +133,7 @@
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $contact['total_student'] }}</div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
@@ -86,7 +160,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Total Pengajar</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $contact['total_employee'] }}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -102,7 +176,8 @@
                     <div class="row">
 
                         <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
+                        <div class="col-xl-12 col-lg-7">
+                            {{-- <div class="col-xl-8 col-lg-7"> --}}
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -133,7 +208,7 @@
                         </div>
 
                         <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
+                        {{-- <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -161,7 +236,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <!-- Content Row -->
@@ -320,50 +395,50 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        var ctx = document.getElementById("myPieChart").getContext("2d");
+        // var ctx = document.getElementById("myPieChart").getContext("2d");
 
-        var myPieChart = new Chart(ctx, {
-            type: 'doughnut', // Bisa diganti dengan 'pie' jika ingin tipe pie chart
-            data: {
-                labels: ["Aktif", "Tidak Aktif", "Lulus"],
-                datasets: [{
-                    data: [40, 35, 25], // Persentase atau nilai dummy
-                    backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-                    hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-                    hoverBorderColor: "rgba(234, 236, 244, 1)",
-                }],
-            },
-            options: {
-                maintainAspectRatio: false,
-                tooltips: {
-                    backgroundColor: "rgb(255,255,255)",
-                    bodyFontColor: "#858796",
-                    borderColor: '#dddfeb',
-                    borderWidth: 1,
-                    xPadding: 15,
-                    yPadding: 15,
-                    displayColors: false,
-                    caretPadding: 10,
-                },
-                legend: {
-                    display: true,
-                    position: 'bottom'
-                },
-                cutoutPercentage: 70, // Untuk membuatnya lebih ke doughnut
-            },
-        });
+        // var myPieChart = new Chart(ctx, {
+        //     type: 'doughnut', // Bisa diganti dengan 'pie' jika ingin tipe pie chart
+        //     data: {
+        //         labels: ["Aktif", "Tidak Aktif", "Lulus"],
+        //         datasets: [{
+        //             data: [40, 35, 25], // Persentase atau nilai dummy
+        //             backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+        //             hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+        //             hoverBorderColor: "rgba(234, 236, 244, 1)",
+        //         }],
+        //     },
+        //     options: {
+        //         maintainAspectRatio: false,
+        //         tooltips: {
+        //             backgroundColor: "rgb(255,255,255)",
+        //             bodyFontColor: "#858796",
+        //             borderColor: '#dddfeb',
+        //             borderWidth: 1,
+        //             xPadding: 15,
+        //             yPadding: 15,
+        //             displayColors: false,
+        //             caretPadding: 10,
+        //         },
+        //         legend: {
+        //             display: true,
+        //             position: 'bottom'
+        //         },
+        //         cutoutPercentage: 70, // Untuk membuatnya lebih ke doughnut
+        //     },
+        // });
 
         var ctx = document.getElementById("myAreaChart").getContext("2d");
 
         var myAreaChart = new Chart(ctx, {
-            type: 'line', // Menggunakan line chart untuk area chart
+            type: 'line',
             data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"], // Bulan dummy
+                labels: {!! json_encode($month) !!},  // Passing the month labels
                 datasets: [{
-                    label: "Pemasukan",
-                    data: [1200, 1900, 3000, 5000, 2300, 4000, 6000], // Data dummy
-                    backgroundColor: "rgba(78, 115, 223, 0.2)", // Warna area
-                    borderColor: "#4e73df", // Warna garis
+                    label: "Donasi",
+                    data: {!! json_encode($donate) !!},  // Passing the total donations per month
+                    backgroundColor: "rgba(78, 115, 223, 0.2)",
+                    borderColor: "#4e73df",
                     pointRadius: 3,
                     pointBackgroundColor: "#4e73df",
                     pointBorderColor: "#ffffff",

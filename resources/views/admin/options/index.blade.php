@@ -57,6 +57,96 @@
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Status Donatur</h6>
+                        <button id="addDonaturStatus" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Edit</th>
+                                    <th>Hapus</th>
+                                </tr>
+                            </thead>
+                            @foreach ($donaturStatus as $data)
+                                <tbody>
+                                    <td>{{ $data->name }}</td>
+                                    <td>
+                                        <button type="button" id="editDonaturStatus" class="btn btn-sm btn-primary btn-edit-entity"
+                                            data-id="{{ $data->id }}"
+                                            data-name="{{ $data->name }}"
+                                            data-type="donatur status"
+                                            data-url="{{ route('options.update', $data->id) }}">
+                                            Edit
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" 
+                                            onclick="confirmDelete({{ $data->id }}, '{{ $data->name }}', 'options')">
+                                            <i class="ri-delete-bin-fill"></i>
+                                        </button>
+                                    </td>
+                                </tbody>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Status Santri</h6>
+                        <button id="addStudentStatus" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Edit</th>
+                                    <th>Hapus</th>
+                                </tr>
+                            </thead>
+                            @foreach ($studentStatus as $data)
+                                <tbody>
+                                    <td>{{ $data->name }}</td>
+                                    <td>{{ $data->amount }}</td>
+                                    <td>
+                                        <button type="button" id="editStudentStatus" class="btn btn-sm btn-primary btn-edit-entity"
+                                            data-id="{{ $data->id }}"
+                                            data-name="{{ $data->name }}"
+                                            data-type="student status"
+                                            data-url="{{ route('options.update', $data->id) }}">
+                                            Edit
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" 
+                                            onclick="confirmDelete({{ $data->id }}, '{{ $data->name }}', 'options')">
+                                            <i class="ri-delete-bin-fill"></i>
+                                        </button>
+                                    </td>
+                                </tbody>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="d-sm-flex align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Kategori Kelas</h6>
                         <button id="addClass" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah</button>
                     </div>
@@ -284,218 +374,99 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Status Pegawai</h6>
+                        <button id="addEmployeeStatus" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Edit</th>
+                                    <th>Hapus</th>
+                                </tr>
+                            </thead>
+
+                            @foreach ($employeeStatus as $data)
+                                <tbody>
+                                    <td>{{ $data->name }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-primary btn-edit-entity"
+                                            data-id="{{ $data->id }}"
+                                            data-name="{{ $data->name }}"
+                                            data-type="employee status"
+                                            data-url="{{ route('options.update', $data->id) }}">
+                                            Edit
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" 
+                                            onclick="confirmDelete({{ $data->id }}, '{{ $data->name }}', 'options')">
+                                            <i class="ri-delete-bin-fill"></i>
+                                        </button>
+                                    </td>
+                                </tbody>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Kategori Pegawai</h6>
+                        <button id="addEmployeeCategory" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Edit</th>
+                                    <th>Hapus</th>
+                                </tr>
+                            </thead>
+
+                            @foreach ($employeeCategory as $data)
+                                <tbody>
+                                    <td>{{ $data->name }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-primary btn-edit-entity"
+                                            data-id="{{ $data->id }}"
+                                            data-name="{{ $data->name }}"
+                                            data-type="employee category"
+                                            data-url="{{ route('options.update', $data->id) }}">
+                                            Edit
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" 
+                                            onclick="confirmDelete({{ $data->id }}, '{{ $data->name }}', 'options')">
+                                            <i class="ri-delete-bin-fill"></i>
+                                        </button>
+                                    </td>
+                                </tbody>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @section('script')
-    <script>
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     function openModal(title, actionUrl, fieldsHtml) {
-        //         document.getElementById("modalEntityLabel").textContent = title;
-        //         document.getElementById("entityForm").action = actionUrl;
-        //         document.getElementById("entityFields").innerHTML = fieldsHtml;
-        //         new bootstrap.Modal(document.getElementById("addEntityModal")).show();
-        //     }
-
-        //     document.getElementById("AddDonatePackage").addEventListener("click", function() {
-        //         openModal(
-        //             "Tambah Donatur",
-        //             "{{ route('options.submit') }}",
-        //             `
-        //             <input type="hidden" id="type" name="type" value="{{ $pck }}">
-
-        //             <div class="row mb-3 align-items-center">
-        //                 <div class="col-4">
-        //                     <label for="name" class="form-label mb-0">Nama</label>
-        //                 </div>
-        //                 <div class="col-8">
-        //                     <input type="text" class="form-control" id="name" name="name" required>
-        //                 </div>
-        //             </div>
-        //             <div class="row mb-3 align-items-center">
-        //                 <div class="col-4">
-        //                     <label for="amount" class="form-label mb-0">Nominal</label>
-        //                 </div>
-        //                 <div class="col-8">
-        //                     <div class="input-group">
-        //                         <span class="input-group-text bg-light border-end-0 rounded-start">Rp</span>
-        //                         <input type="number" class="form-control border-start-0" id="amount" name="amount" required>
-        //                     </div>
-        //                 </div>
-        //             </div>
-
-        //             `
-        //         );
-        //     });
-
-        //     document.getElementById("editPackage").addEventListener("click", function () {
-        //         const id = this.dataset.id;
-        //         const name = this.dataset.name;
-        //         const amount = this.dataset.amount;
-        //         const url = this.dataset.url;
-
-        //         const fieldsHtml = `
-        //             <input type="hidden" name="_method" value="PUT">
-        //             <input type="hidden" name="id" value="${id}">
-        //             <input type="hidden" id="type" name="type" value="{{ $pck }}">
-        //             <div class="row mb-3 align-items-center">
-        //                 <div class="col-4">
-        //                     <label for="name" class="form-label mb-0">Nama</label>
-        //                 </div>
-        //                 <div class="col-8">
-        //                     <input type="text" class="form-control" id="name" name="name" value="${name}" required>
-        //                 </div>
-        //             </div>
-        //             <div class="row mb-3 align-items-center">
-        //                 <div class="col-4">
-        //                     <label for="amount" class="form-label mb-0">Nominal</label>
-        //                 </div>
-        //                 <div class="col-8">
-        //                     <div class="input-group">
-        //                         <span class="input-group-text bg-light border-end-0 rounded-start">Rp</span>
-        //                         <input type="number" class="form-control border-start-0" id="amount" name="amount" min="0" value="${amount}" required>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         `;
-
-        //         openModal("Edit Donatur", url, fieldsHtml);
-        //     });
-
-        //     document.getElementById("AddClassCategory").addEventListener("click", function() {
-        //         openModal(
-        //             "Tambah Kelas",
-        //             "{{ route('options.submit') }}",
-        //             `
-        //             <input type="hidden" id="type" name="type" value="{{ $cls }}">
-                    
-        //             <div class="row mb-3 align-items-center">
-        //                 <div class="col-4">
-        //                     <label for="name" class="form-label mb-0">Nama</label>
-        //                 </div>
-        //                 <div class="col-8">
-        //                     <input type="text" class="form-control" id="name" name="name" required>
-        //                 </div>
-        //             </div>
-
-        //             `
-        //         );
-        //     });
-
-        //     document.getElementById("editClassCategory").addEventListener("click", function () {
-        //         const id = this.dataset.id;
-        //         const name = this.dataset.name;
-        //         const url = this.dataset.url;
-
-        //         const fieldsHtml = `
-        //             <input type="hidden" name="_method" value="PUT">
-        //             <input type="hidden" name="id" value="${id}">
-        //             <input type="hidden" id="type" name="type" value="{{ $pck }}">
-        //             <div class="row mb-3 align-items-center">
-        //                 <div class="col-4">
-        //                     <label for="name" class="form-label mb-0">Nama</label>
-        //                 </div>
-        //                 <div class="col-8">
-        //                     <input type="text" class="form-control" id="name" name="name" value="${name}" required>
-        //                 </div>
-        //             </div>
-        //         `;
-
-        //         openModal("Edit Kelas", url, fieldsHtml);
-        //     });
-
-        //     document.getElementById("AddSchool").addEventListener("click", function() {
-        //         openModal(
-        //             "Tambah Sekolah",
-
-        //             "{{ route('options.submit') }}",
-        //             `
-        //             <input type="hidden" id="type" name="type" value="{{ $sch }}">
-        //             <div class="row mb-3 align-items-center">
-        //                 <div class="col-4">
-        //                     <label for="name" class="form-label mb-0">Nama</label>
-        //                 </div>
-        //                 <div class="col-8">
-        //                     <input type="text" class="form-control" id="name" name="name" required>
-        //                 </div>
-        //             </div>
-
-        //             `
-        //         );
-        //     });
-
-        //     document.getElementById("AddWallet").addEventListener("click", function() {
-        //         openModal(
-        //             "Tambah Dompet",
-
-        //             "{{ route('options.submit') }}",
-        //             `
-        //             <input type="hidden" id="type" name="type" value="{{ $wlt }}">
-
-        //             <div class="row mb-3 align-items-center">
-        //                 <div class="col-4">
-        //                     <label for="name" class="form-label mb-0">Nama</label>
-        //                 </div>
-        //                 <div class="col-8">
-        //                     <input type="text" class="form-control" id="name" name="name" required>
-        //                 </div>
-        //             </div>
-        //             <div class="row mb-3 align-items-center">
-        //                 <div class="col-4">
-        //                     <label for="name" class="form-label mb-0">Jenis</label>
-        //                 </div>
-        //                 <div class="col-8">
-        //                     <select class="form-control" name="wallet_type" aria-label="Default select example">
-        //                         <option selected disabled>Pilih Jenis</option>
-        //                         <option value="cash">Kas</option>
-        //                         <option value="bank">Bank</option>
-        //                     </select>
-        //                 </div>
-        //             </div>
-
-        //             `
-        //         );
-        //     });
-
-        //     document.getElementById("AddIncomeCategory").addEventListener("click", function() {
-        //         openModal(
-        //             "Tambah Kategori Pemasukan",
-        //             "{{ route('options.submit') }}",
-        //             `
-        //             <input type="hidden" id="type" name="type" value="{{ $dbt }}">
-
-        //             <div class="row mb-3 align-items-center">
-        //                 <div class="col-4">
-        //                     <label for="name" class="form-label mb-0">Nama</label>
-        //                 </div>
-        //                 <div class="col-8">
-        //                     <input type="text" class="form-control" id="name" name="name" required>
-        //                 </div>
-        //             </div>
-
-        //             `
-        //         );
-        //     });
-
-        //     document.getElementById("AddOutcomeCategory").addEventListener("click", function() {
-        //         openModal(
-        //             "Tambah Kategori Pengeluaran",
-        //             "{{ route('options.submit') }}",
-        //             `
-        //             <input type="hidden" id="type" name="type" value="{{ $crd }}">
-
-        //             <div class="row mb-3 align-items-center">
-        //                 <div class="col-4">
-        //                     <label for="name" class="form-label mb-0">Nama</label>
-        //                 </div>
-        //                 <div class="col-8">
-        //                     <input type="text" class="form-control" id="name" name="name" required>
-        //                 </div>
-        //             </div>
-
-        //             `
-        //         );
-        //     });
-
-        // });
-
+<script>
 document.addEventListener("DOMContentLoaded", function () {
     function openModal(title, actionUrl, fieldsHtml) {
         document.getElementById("modalEntityLabel").textContent = title;
@@ -584,6 +555,26 @@ document.addEventListener("DOMContentLoaded", function () {
         openModal("Tambah Pengeluaran", "{{ route('options.submit') }}", getFieldsHtml("credit"));
     });
 
+    // Tambah Pengeluaran
+    document.getElementById("addStudentStatus")?.addEventListener("click", function () {
+        openModal("Tambah Status Santri", "{{ route('options.submit') }}", getFieldsHtml("student status"));
+    });
+
+    // Tambah Pengeluaran
+    document.getElementById("addDonaturStatus")?.addEventListener("click", function () {
+        openModal("Tambah Status Donatur", "{{ route('options.submit') }}", getFieldsHtml("donatur status"));
+    });
+
+    // Tambah Employee Status
+    document.getElementById("addEmployeeStatus")?.addEventListener("click", function () {
+        openModal("Tambah Status Pegawai", "{{ route('options.submit') }}", getFieldsHtml("employee status"));
+    });
+
+    // Tambah Employee Category
+    document.getElementById("addEmployeeCategory")?.addEventListener("click", function () {
+        openModal("Tambah Kategori Pegawai", "{{ route('options.submit') }}", getFieldsHtml("employee category"));
+    });
+
 
     document.querySelectorAll(".btn-edit-entity").forEach(button => {
     button.addEventListener("click", function () {
@@ -656,33 +647,9 @@ function capitalizeFirstLetter(str) {
 
 });
 
-
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     // Function to open the modal and update content
-        //     function openModal(title, actionUrl, fieldsHtml) {
-        //         document.getElementById("modalEntityLabel").textContent = title;
-        //         document.getElementById("entityForm").action = actionUrl;
-        //         document.getElementById("entityFields").innerHTML = fieldsHtml;
-        //         new bootstrap.Modal(document.getElementById("addEntityModal")).show();
-        //     }
-
-        //     // Example usage for opening the modal
-        //     document.getElementById("AddDonatePackage").addEventListener("click", function() {
-        //         openModal(
-        //             "Tambah Donatur",
-        //             `
-        //             <label for="positionName" class="form-label">Nama</label>
-        //             <input type="text" class="input-form" id="positionName" name="name" required>
-
-        //             `
-        //         );
-        //     });
-
-        // });
-
-    </script>
+</script>
 @endsection
 
-@include('admin.options.add')
+@include('admin.options.modal')
 @include('components.modal.delete')
 @endsection
