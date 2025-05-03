@@ -1,77 +1,38 @@
 <nav id="sidebar" class="sidebar">
-    <!-- Sidebar Toggle (Mobile) -->
+
+    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <hr class="sidebar-divider my-0">
+    
+        <x-sidebar-item route="dashboard" icon="fa-tachometer-alt" label="Beranda" :permission="'view dashboard'" />
+        <x-sidebar-item route="student.index" icon="fa-user-graduate" label="Santri" :permission="'view student'" />
+        <x-sidebar-item route="donors.index" icon="fa-people-arrows" label="Donatur" :permission="'view donor'" />
+        <x-sidebar-item route="employees.index" icon="fa-users" label="Karyawan" :permission="'view employee'" />
+        <x-sidebar-item route="vendor.index" icon="fa-users" label="Vendor" :permission="'view vendor'" />
+        <x-sidebar-item route="trx.donor.index" icon="fa-hand-holding-droplet" label="Donasi" :permission="'view donate'" />
+        <x-sidebar-item route="trx.index" icon="fa-wallet" label="Transaksi" :permission="'view transaction'" />
+        <x-sidebar-item route="options.index" icon="fa-wrench" label="Pengaturan" :permission="'view setting'" />
+        <x-sidebar-item route="roles.index" icon="fa-user-tag" label="Role & User" :permission="'view role'" />
+        <x-sidebar-item route="account.edit" icon="fa-people-arrows" label="Akun" :permission="'view dashboard'" />
+        
+        <li class="nav-item">
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+            <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="fas fa-fw fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </li>
+        
+
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
 
 
-
-    {{-- <aside id="sidebar" class="sidebar"> --}}
-       <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Beranda -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Beranda</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('student.index') }}">
-                    <i class="fas fa-fw fa-user-graduate"></i>
-                    <span>Santri</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('donors.index') }}">
-                    <i class="fas fa-fw fa-people-arrows fa-bounce"></i>
-                    <span>Donatur</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('employees.index') }}">
-                    <i class="fas fa-fw fa-users"></i>
-                    {{-- <i class="fas fa-fw fa-people-arrows fa-bounce"></i> --}}
-                    <span>Karyawan</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('trx.donor.index') }}">
-                    <i class="fas fa-hand-holding-droplet"></i>
-                    <span>Donasi</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('trx.index') }}">
-                    <i class="fas fa-fw fa-wallet"></i>
-                    <span>Transaksi</span></a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('donors.index') }}">
-                    <i class="fas fa-fw fa-chart-simple"></i>
-                    <span>Rencana Keuangan</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('options.index') }}">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    {{-- <i class="fa-solid fa-screwdriver-wrench"></i> --}}
-                    <span>Pengaturan</span></a>
-            </li>
-
-            <!-- Divider -->
-            {{-- <hr class="sidebar-divider d-none d-md-block"> --}}
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
-        <!-- End of Sidebar -->
-
+    
+    </ul>
 
 </nav>
 

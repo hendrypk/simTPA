@@ -11,45 +11,38 @@
 
     {{-- <title>SB Admin 2 - Dashboard</title> --}}
     <title>@yield('title','TPQ At-Taqwa')</title>
+    <link rel="icon" type="image/png" href="{{ asset('img/favicon.jpg') }}">
+
 
     @vite([
-        // 'resources/vendor/fontawesome-free/css/all.min.css',
-        // 'resources/css/sb-admin-2.min.css',
-        // 'resources/css/sb-admin-2.css',
         'resources/css/app.css'
     ])
     
     <!-- Remix Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
-    <!-- Bootstrap 5 CSS -->
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap 5 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> --}}
-
-
+    @stack('styles')
 
 </head>
-
-
 @include('admin._layout.header')
-
 <body id="page-top">
-    
     <!-- Page Wrapper -->
     <div id="wrapper">
-        
         @include('admin._layout.sidebar')
                 <!-- Content Wrapper -->
                 <div id="content-wrapper" class="d-flex flex-column">
 
                     <!-- Main Content -->
                     <div id="content">
-        
-                        <!-- Begin Page Content -->
+                        <!--page heading-->
                         <div class="container-fluid">
+                            {{-- <div class="d-sm-flex align-items-center justify-content-between mb-4 flex-wrap">
+                                <h1 class="h3 mb-2 text-gray-800">@yield('heading', 'Heading')</h1>
+                                @if(!in_array(request()->route()->getName(), ['options.index', 'roles.index', 'roles.detail']))
+                                @endif                                                    
+                            </div> --}}
                             @yield('content')
                         </div>
                         <!-- /.container-fluid -->
@@ -69,8 +62,6 @@
 
                 </div>
                 <!-- End of Content Wrapper -->
-
-
     </div>
     <!-- End of Page Wrapper -->
 
@@ -90,8 +81,14 @@
                 icon: 'success',
                 title: 'Berhasil!',
                 text: '{{ session('success') }}',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'OK'
+                timer: 2000, // ⏳ Tampilkan alert selama 2 detik
+                showConfirmButton: false,
+
+                // icon: 'success',
+                // title: 'Berhasil!',
+                // text: '{{ session('success') }}',
+                // confirmButtonColor: '#3085d6',
+                // confirmButtonText: 'OK'
             });
         });
     </script>
@@ -174,6 +171,7 @@
         // 'resources/vendor/chart.js/Chart.min.js',
     ])
     @yield('script')
+    @stack('scripts')
 </body>
 
 </html>

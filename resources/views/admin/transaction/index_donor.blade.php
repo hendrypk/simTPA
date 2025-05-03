@@ -1,21 +1,22 @@
 @extends('admin._layout.main')
-@section('title', __('Donasi'))
+@section('title', __('Donasi - TPA Attaqwa'))
+@section('heading', __('Data Donasi'))
 @section('content')
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Donasi</h1>
-            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Ekspor</a> --}}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4 flex-wrap">
+        <h1 class="h3 mb-2 text-gray-800">Donasi</h1>
+        <x-date-range-filter/>                                            
     </div>
-    <div class="card shadow mb-4">
+    <div class="card mb-4">
         <div class="card-header py-3">
             <div class="d-sm-flex align-items-center justify-content-end">
                 <!-- Tombol trigger modal -->
-                <button id="formModalBtn" data-action="{{ route('trx.donor.submit') }}" class="btn btn-sm btn-primary shadow-sm formModalBtn">
-                    Tambah Donasi
-                </button>
-
-                {{-- <button id="formModal" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah Santri Baru</button> --}}
+                @auth
+                @if(auth()->user()->hasRole('admin') || auth()->user()->can('create transaction'))
+                    <button id="formModalBtn" data-action="{{ route('trx.donor.submit') }}" class="btn btn-sm btn-primary formModalBtn">
+                        Tambah Donasi
+                    </button>
+                @endif
+                @endauth
             </div>
         </div>
         <div class="card-body">
@@ -39,7 +40,7 @@
                         <tbody>
                             <td>{{ $no+1 }}</td>
                             <td>{{ $data->transaction_id }}</td>
-                            <td>{{ $data->transaction_at }}</td>
+                            <td>{{ $data->transaction_at->format('d M Y') }}</td>
                             <td>{{ $data->contact_name->name }}</td>
                             <td>{{ $data->meta }}</td>
                             <td>{{ $data->amount }}</td>
@@ -49,26 +50,30 @@
                                 onclick="showAttachmentModal('{{ $data->getFirstMediaUrl('transactions') }}')">
                                 <i class="ri-eye-fill"></i>
                             </button>
-                                {{-- <a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#attachmentModal" onclick="showAttachmentModal('{{ $data->getFirstMediaUrl('transactions') }}')">
-                                    Lihat Bukti Transaksi
-                                </a> --}}
-                            </td>
                             <td>
-                                <button type="button" id="formModalBtn" class="btn btn-sm btn-primary formModalBtn btn-edit"
-                                    data-id="{{ $data->id }}"
-                                    data-date="{{ $data->transaction_at }}"
-                                    data-meta="{{ $data->meta }}"
-                                    data-amount="{{ $data->amount }}"
-                                    data-wallet="{{ $data->wallet_id }}"
-                                    data-related_id="{{ $data->related_id }}"
-                                    data-action="{{ route('trx.donor.submit', $data->id) }}">
-                                    <i class="ri-pencil-fill"></i>
-                                </button>
+                                @auth
+                                @if(auth()->user()->hasRole('admin') || auth()->user()->can('update transaction'))
+                                    <button type="button" id="formModalBtn" class="btn btn-sm btn-primary formModalBtn btn-edit"
+                                        data-id="{{ $data->id }}"
+                                        data-date="{{ $data->transaction_at }}"
+                                        data-meta="{{ $data->meta }}"
+                                        data-amount="{{ $data->amount }}"
+                                        data-wallet="{{ $data->wallet_id }}"
+                                        data-related_id="{{ $data->related_id }}"
+                                        data-action="{{ route('trx.donor.submit', $data->id) }}">
+                                        <i class="ri-pencil-fill"></i>
+                                    </button>
+                                @endif
+                                @endauth
                             <td>
-                                <button type="button" class="btn btn-sm btn-danger" 
-                                    onclick="confirmDelete({{ $data->id }}, '{{ $data->transaction_at }}', 'transactions')">
-                                    <i class="ri-delete-bin-fill"></i>
-                                </button>
+                                @auth
+                                @if(auth()->user()->hasRole('admin') || auth()->user()->can('delete transaction'))
+                                    <button type="button" class="btn btn-sm btn-danger" 
+                                        onclick="confirmDelete({{ $data->id }}, '{{ $data->transaction_at }}', 'transactions')">
+                                        <i class="ri-delete-bin-fill"></i>
+                                    </button>
+                                @endif
+                                @endauth
                             </td>
                         </tbody>
                     @endforeach

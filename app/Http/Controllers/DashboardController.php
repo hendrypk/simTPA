@@ -11,35 +11,51 @@ class DashboardController
 {
     use DashboardTrait;
 
-    public function index()
+    public function index(Request $request)
     {
-        $trx = $this->transactionSummary();
-        $contact = $this->contactSummary();
-        
+        // Ambil tanggal dari request atau default ke bulan ini
+        $range = str_replace('+', ' ', $request->input('date_range'));
+        $start = now()->startOfMonth()->toDateString();
+        $end = now()->endOfMonth()->toDateString();
+
+        if ($range && str_contains($range, 'to')) {
+            [$startParsed, $endParsed] = explode(' to ', $range);
+            if ($startParsed && $endParsed) {
+                $start = trim($startParsed);
+                $end = trim($endParsed);
+            }
+        }
+
+        // Kirim tanggal ke trait
+        $trx = $this->transactionSummary($start, $end);
+        $contact = $this->contactSummary($start, $end);
+
+        // Get donations, filter by date
         $donateChart = Transaction::where('type', Transaction::TYPE_DONOR)
             ->whereNull('deleted_at')
+            // ->whereBetween('transaction_at', [$start, $end])
             ->get();
 
-        // Grouping by month and calculating the total donations per month
-        $donationPerMonth = $donateChart->groupBy(function ($date) {
-            return Carbon::parse($date->created_at)->format('M'); // 'M' gives the abbreviated month name (Jan, Feb, ...)
-        })->map(function ($month) {
-            return $month->sum('amount');  // Summing up the donations for each month
+        // Group by short month name (Jan, Feb, ...)
+        $donationPerMonth = $donateChart->groupBy(function ($item) {
+            return Carbon::parse($item->transaction_at)->format('M');
+        })->map(function ($group) {
+            return $group->sum('amount');
         });
 
-        // Full month names for labels
+        // Define all months
         $allMonths = [
             'Jan' => 'January', 'Feb' => 'February', 'Mar' => 'March', 'Apr' => 'April', 'May' => 'May',
             'Jun' => 'June', 'Jul' => 'July', 'Aug' => 'August', 'Sep' => 'September', 'Oct' => 'October',
             'Nov' => 'November', 'Dec' => 'December'
         ];
 
-        // Prepare the labels and data to ensure all months are included
-        $month = array_values($allMonths);  // Get the full month names as labels
+        // Get full month names
+        $month = array_values($allMonths);
 
-        // Prepare the data (total donations per month), ensuring missing months are filled with 0
-        $donate = array_map(function ($month) use ($donationPerMonth) {
-            return $donationPerMonth->get($month, 0);  // Return the sum for the month or 0 if no data
+        // Get donation data per month, fill 0 if missing
+        $donate = array_map(function ($shortMonth) use ($donationPerMonth) {
+            return $donationPerMonth->get($shortMonth, 0);
         }, array_keys($allMonths));
 
         return view('admin.index', compact('trx', 'contact', 'month', 'donate'));

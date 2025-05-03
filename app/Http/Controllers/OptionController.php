@@ -21,6 +21,7 @@ class OptionController extends Controller
         $donaturStatus = Option::where('type', Option::TYPE_DONATUR_STATUS)->get();
         $employeeStatus = Option::where('type', Option::TYPE_EMPLOYEE_STATUS)->get();
         $employeeCategory = Option::where('type', Option::TYPE_EMPLOYEE_CATEGORY)->get();
+        $status = Option::where('type', Option::TYPE_STATUS)->get();
         return view('admin.options.index', [
             'pck' => Option::TYPE_PACKAGE,
             'crd' => Option::TYPE_CREDIT,
@@ -32,6 +33,7 @@ class OptionController extends Controller
             'dnt_sts' => Option::TYPE_DONATUR_STATUS,
             'emp_sts' => Option::TYPE_EMPLOYEE_STATUS,
             'emp_ctg' => Option::TYPE_EMPLOYEE_CATEGORY,
+            'sts' => Option::TYPE_STATUS,
         ], compact(
             'donatePackage',
             'class',
@@ -42,7 +44,8 @@ class OptionController extends Controller
             'studentStatus',
             'donaturStatus',
             'employeeStatus',
-            'employeeCategory'));
+            'employeeCategory',
+            'status'));
     }
 
     public function submit (Request $request) {

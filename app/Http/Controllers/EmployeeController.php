@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Option;
 use App\Models\Contact;
 use App\Models\Employee;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -13,7 +14,7 @@ class EmployeeController extends Controller
     public function index () {
         $employees = Contact::with('statuses', 'employee_category')->where('type', Contact::TYPE_EMPLOYEE)->get();
         $category = Option::where('type', 'employee category')->get();
-        $status = Option::where('type', 'employee status')->get();
+        $status = Option::where('type', Option::TYPE_STATUS)->get();
         return view('admin.employee.index', compact('employees', 'category', 'status'));
     }
 
@@ -70,6 +71,14 @@ class EmployeeController extends Controller
     }
 
     public function delete($id) {
+        $exist = Transaction::where('related_id', $id)->exists();
+        if ($exist) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ada transaksi dari karyawan tersebut, tidak bisa dihapus!',
+                'redirect' => route('options.index')
+            ]);
+        }
         $employee = Contact::find($id);
         $employee->delete();
         return response()->json([

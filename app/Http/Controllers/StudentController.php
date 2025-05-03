@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
 use Carbon\Carbon;
 use App\Models\Option;
+use App\Models\Contact;
 use App\Models\Student;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -13,9 +14,9 @@ class StudentController extends Controller
     public function index() {
         $students = Contact::with('classes', 'schools', 'statuses')->where('type', Contact::TYPE_STUDENT)->get();
         // dd($students);
-        $class = Option::where('type', 'class')->get(['id', 'name']);
-        $school = Option::where('type', 'school')->get(['id', 'name']);
-        $status = Option::where('type', 'student status')->get(['id', 'name']);
+        $class = Option::where('type', Option::TYPE_CLASS)->get();
+        $school = Option::where('type', Option::TYPE_SCHOOL)->get();
+        $status = Option::where('type', Option::TYPE_STATUS)->get();
         return view('admin.student.index', compact('students', 'class', 'school', 'status'));
     }
 
@@ -80,6 +81,14 @@ class StudentController extends Controller
     }
 
     public function delete($id) {
+        $exist = Transaction::where('related_id', $id)->exists();
+        if ($exist) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ada transaksi dari santri tersebut, tidak bisa dihapus!',
+                'redirect' => route('options.index')
+            ]);
+        }
         $student = Contact::find($id);
         $student->delete();
 

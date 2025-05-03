@@ -25,6 +25,12 @@ class Transaction extends Model implements HasMedia
         'is_donor'
     ];
 
+    protected $casts = [
+        'wallet_id' => 'int',
+        'payable_id' => 'int',
+        'transaction_at' => 'datetime',
+    ];
+    
     const TYPE_CREDIT   = 'credit';
     const TYPE_DEBET    = 'debet';
     const TYPE_TRANSFER = 'transfer';

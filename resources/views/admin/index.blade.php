@@ -1,26 +1,40 @@
 @extends('admin._layout.main')
 @section('title', __('TPQ At-Taqwa'))
+@section('heading', __('Dashboard'))
 @section('content')
+                    @push('styles')
+                        <style>
+                            .input-group .form-control {
+                                min-width: 220px;
+                            }
+                            @media (max-width: 576px) {
+                                .input-group {
+                                    flex-direction: column;
+                                    align-items: stretch;
+                                }
+                                .input-group-append {
+                                    margin-left: 0;
+                                    margin-top: 0.5rem;
+                                }
+                            }
+                        </style>
+                    @endpush
 
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4 flex-wrap">
+                        <h1 class="h3 mb-2 text-gray-800">Dashboard</h1>
+                        <x-date-range-filter/>                                            
                     </div>
-
+                
                     <!-- Content Row -->
                     <div class="row">
-
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card border-left-primary  h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Total Pemasukan</div>
+                                                Pemasukan</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $trx['total_debet'] }}</div>
                                         </div>
                                         <div class="col-auto">
@@ -33,12 +47,12 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card border-left-success  h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Total Pengeluaran</div>
+                                                Pengeluaran</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $trx['total_credit'] }}</div>
                                         </div>
                                         <div class="col-auto">
@@ -50,12 +64,12 @@
                         </div>
 
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card border-left-info  h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                Total Donasi</div>
+                                                Donasi</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $trx['total_donate'] }}</div>
                                         </div>
                                         <div class="col-auto">
@@ -67,7 +81,7 @@
                         </div>
 
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card border-left-warning h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -82,19 +96,18 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="row">
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card border-left-primary h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Total Donatur</div>
+                                                Donatur</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $contact['total_donor'] }}</div>
                                         </div>
                                         <div class="col-auto">
@@ -107,12 +120,12 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card border-left-success h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Total Vendor</div>
+                                                Vendor</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $contact['total_vendor'] }}</div>
                                         </div>
                                         <div class="col-auto">
@@ -125,11 +138,11 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card border-left-info h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Santri
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Santri
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
@@ -154,7 +167,7 @@
 
                         <!-- Pending Requests Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card border-left-warning h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -178,7 +191,7 @@
                         <!-- Area Chart -->
                         <div class="col-xl-12 col-lg-7">
                             {{-- <div class="col-xl-8 col-lg-7"> --}}
-                            <div class="card shadow mb-4">
+                            <div class="card mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">

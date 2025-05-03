@@ -1,21 +1,23 @@
 @extends('admin._layout.main')
-@section('title', __('TPQ At-Taqwa'))
+@section('title', __('Karyawan - TPQ At-Taqwa'))
+@section('heading', __('Data Karyawan'))
 @section('content')
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data Karyawan</h1>
-            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Ekspor</a> --}}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4 flex-wrap">
+        <h1 class="h3 mb-2 text-gray-800">Karyawan</h1>
+        <x-date-range-filter/>                                            
     </div>
-    <div class="card shadow mb-4">
+    <div class="card mb-4">
         <div class="card-header py-3">
             <div class="d-sm-flex align-items-center justify-content-end">
                 <!-- Tombol trigger modal -->
-                <button id="formModalBtn" data-action="{{ route('employees.submit') }}" class="btn btn-sm btn-primary shadow-sm formModalBtn">
-                    Tambah Karyawan Baru
-                </button>
-
-                {{-- <button id="formModal" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah Santri Baru</button> --}}
+                @auth
+                @if(auth()->user()->hasRole('admin') || auth()->user()->can('create employee'))
+                    <button id="formModalBtn" data-action="{{ route('employees.submit') }}" class="btn btn-sm btn-primary formModalBtn">
+                        Tambah Karyawan Baru
+                    </button>
+                @endif
+                @endauth
+                {{-- <button id="formModal" class="btn d-none d-sm-inline-block btn btn-sm btn-primary">Tambah Santri Baru</button> --}}
             </div>
         </div>
         <div class="card-body">
@@ -43,25 +45,35 @@
                             <td>{{ $data->address }}</td>
                             {{-- <td>{{ $data->whatsapp }}</td> --}}
                             <td>
-                                <a href="https://wa.me/62{{ ltrim($data->whatsapp, '0') }}" target="_blank">
-                                    {{ $data->whatsapp }}
-                                </a>
+
+                                @auth
+                                @if(auth()->user()->hasRole('admin') || auth()->user()->can('update employee'))
+                                    <a href="https://wa.me/62{{ ltrim($data->whatsapp, '0') }}" target="_blank">
+                                        {{ $data->whatsapp }}
+                                    </a>
+                                @endif
+                                @endauth
                             </td>
-                            <td>{{ $data->register_date }}</td>
+                            <td>{{ $data->register_date->format('d M Y') }}</td>
                             <td>{{ $data->employee_category->name }}</td>
                             <td>{{ $data->statuses->name }}</td>
                             <td>
-                                <button type="button" id="formModalBtn" class="btn btn-sm btn-primary formModalBtn btn-edit"
-                                    data-id="{{ $data->id }}"
-                                    data-name="{{ $data->name }}"
-                                    data-address="{{ $data->address }}"
-                                    data-whatsapp="{{ $data->whatsapp }}"
-                                    data-register_date="{{ $data->register_date }}"
-                                    data-category="{{ $data->employee_category_id }}"
-                                    data-status="{{ $data->status_id }}"
-                                    data-action="{{ route('employees.submit', $data->id) }}">
-                                    <i class="ri-pencil-fill"></i>
-                                </button>
+
+                                @auth
+                                @if(auth()->user()->hasRole('admin') || auth()->user()->can('delete employee'))
+                                    <button type="button" id="formModalBtn" class="btn btn-sm btn-primary formModalBtn btn-edit"
+                                        data-id="{{ $data->id }}"
+                                        data-name="{{ $data->name }}"
+                                        data-address="{{ $data->address }}"
+                                        data-whatsapp="{{ $data->whatsapp }}"
+                                        data-register_date="{{ $data->register_date }}"
+                                        data-category="{{ $data->employee_category_id }}"
+                                        data-status="{{ $data->status_id }}"
+                                        data-action="{{ route('employees.submit', $data->id) }}">
+                                        <i class="ri-pencil-fill"></i>
+                                    </button>
+                                @endif
+                                @endauth
                             <td>
                                 <button type="button" class="btn btn-sm btn-danger" 
                                     onclick="confirmDelete({{ $data->id }}, '{{ $data->name }}', 'employees')">

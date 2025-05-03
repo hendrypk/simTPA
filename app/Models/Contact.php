@@ -28,6 +28,11 @@ class Contact extends Model
         'employee_category_id'
     ];
 
+    protected $casts = [
+        'register_date' => 'datetime',
+        'date_birth' => 'datetime',
+    ];
+
     const TYPE_EMPLOYEE = 'employee';
     const TYPE_DONOR = 'donor';
     const TYPE_STUDENT = 'student';

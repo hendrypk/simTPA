@@ -14,7 +14,7 @@ class DonorController extends Controller
     public function index () {
         $donors = Contact::with('packages', 'statuses')->where('type', Contact::TYPE_DONOR)->get();
         $package = Option::where('type', Option::TYPE_PACKAGE)->get();
-        $status = Option::where('type', Option::TYPE_DONATUR_STATUS)->get();
+        $status = Option::where('type', Option::TYPE_STATUS)->get();
         return view('admin.donor.index', compact('donors', 'package', 'status'));
     }
 

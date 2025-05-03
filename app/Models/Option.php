@@ -27,6 +27,7 @@ class Option extends Model
     public const TYPE_DONATUR_STATUS = 'donatur status';
     public const TYPE_EMPLOYEE_STATUS = 'employee status';
     public const TYPE_EMPLOYEE_CATEGORY = 'employee category';
+    public const TYPE_STATUS = 'status';
 
 
     // (Optional) Array untuk digunakan di form dropdown, dsb
@@ -41,5 +42,6 @@ class Option extends Model
         self::TYPE_DONATUR_STATUS => 'donatur status',
         self::TYPE_EMPLOYEE_STATUS => 'employee status',
         self::TYPE_EMPLOYEE_CATEGORY => 'employee category',
+        self::TYPE_STATUS=> 'status',
     ];
 }

@@ -1,21 +1,25 @@
 @extends('admin._layout.main')
-@section('title', __('TPQ At-Taqwa'))
+@section('title', __('Donatur - TPQ At-Taqwa'))
+@section('heading', __('Data Donatur'))
 @section('content')
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data Doantur</h1>
-            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Ekspor</a> --}}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4 flex-wrap">
+        <h1 class="h3 mb-2 text-gray-800">Donatur</h1>
+        <x-date-range-filter/>                                            
     </div>
-    <div class="card shadow mb-4">
+    <div class="card mb-4">
         <div class="card-header py-3">
             <div class="d-sm-flex align-items-center justify-content-end">
                 <!-- Tombol trigger modal -->
-                <button id="openModal" class="btn btn-sm btn-primary shadow-sm openModal">
-                    Tambah Doantur Baru
-                </button>
+                @auth
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->can('create donor'))
+                        <button id="openModal" class="btn btn-sm btn-primary openModal">
+                            Tambah Donatur Baru
+                        </button>
+                    @endif
+                @endauth
+            
 
-                {{-- <button id="modalDonor" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah Santri Baru</button> --}}
+                {{-- <button id="modalDonor" class="btn d-none d-sm-inline-block btn btn-sm btn-primary">Tambah Santri Baru</button> --}}
             </div>
         </div>
         <div class="card-body">
@@ -46,10 +50,12 @@
                                 </a>
                             </td>
                             <td>{{ $data->address }}</td>
-                            <td>{{ $data->register_date }}</td>
+                            <td>{{ $data->register_date->format('d M Y') }}</td>
                             <td>{{ $data->packages->name }}</td>
                             <td>{{ $data->statuses->name }}</td>
                             <td>
+                                @auth
+                                @if(auth()->user()->hasRole('admin') || auth()->user()->can('update donor'))
                                 <button type="button" id="openModal" class="btn btn-sm btn-primary openModal btn-edit"
                                     data-id="{{ $data->id }}"
                                     data-nis="{{ $data->nis }}"
@@ -62,11 +68,18 @@
                                     data-url="{{ route('donors.submit', $data->id) }}">
                                     <i class="ri-pencil-fill"></i>
                                 </button>
+                                @endif
+                            @endauth
+
                             <td>
-                                <button type="button" class="btn btn-sm btn-danger" 
-                                    onclick="confirmDelete({{ $data->id }}, '{{ $data->name }}', 'donors')">
-                                    <i class="ri-delete-bin-fill"></i>
-                                </button>
+                                @auth
+                                @if(auth()->user()->hasRole('admin') || auth()->user()->can('delete donor'))
+                                    <button type="button" class="btn btn-sm btn-danger" 
+                                        onclick="confirmDelete({{ $data->id }}, '{{ $data->name }}', 'donors')">
+                                        <i class="ri-delete-bin-fill"></i>
+                                    </button>
+                                @endif
+                            @endauth
                             </td>
                         </tbody>
                     @endforeach

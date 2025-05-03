@@ -1,21 +1,122 @@
 @extends('admin._layout.main')
-@section('title', __('Transaksi'))
+@section('title', __('Transaksi - TPA Attaqwa'))
+@section('heading', __('Transaksi'))
 @section('content')
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Transaksi</h1>
-            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Ekspor</a> --}}
-    </div>
-    <div class="card shadow mb-4">
+
+                    <!-- Content Row -->
+                    <div class="row mb-5">
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary  h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Pemasukan</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $trxs['total_debet'] }}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success  h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Pengeluaran</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $trxs['total_credit'] }}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info  h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Donasi</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $trxs['total_donate'] }}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Sisa Saldo</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $trxs['remaining'] }}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <form method="GET" class="mb-4 w-100" id="filterForm">
+                            <div class="row g-2 align-items-end">
+                                <div class="col-md-2">
+                                    <label>Dompet</label>
+                                    <select name="wallet_id" class="form-control" onchange="document.getElementById('filterForm').submit();">
+                                        <option value="">- Semua Dompet -</option>
+                                        @foreach($wallet as $w)
+                                            <option value="{{ $w->id }}" {{ request('wallet_id') == $w->id ? 'selected' : '' }}>
+                                                {{ $w->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                        
+                                <div class="col-md-2">
+                                    <label>Jenis Transaksi</label>
+                                    <select name="type" class="form-control" onchange="document.getElementById('filterForm').submit();">
+                                        <option value="">- Semua -</option>
+                                        <option value="debet" {{ request('type') == 'debet' ? 'selected' : '' }}>Debet (Masuk)</option>
+                                        <option value="credit" {{ request('type') == 'credit' ? 'selected' : '' }}>Credit (Keluar)</option>
+                                    </select>
+                                </div>
+                        
+                                <div class="col-md-2">
+                                    <label>Rentang Tanggal</label>
+                                    {{-- pastikan komponen x-date-range-filter mengisi input name="date_range" --}}
+                                    <x-date-range-filter onchange="document.getElementById('filterForm').submit();"/>
+                                </div>
+                            </div>
+                        </form>
+                        
+
+                    </div>
+    <div class="card mb-4">
         <div class="card-header py-3">
             <div class="d-sm-flex align-items-center justify-content-end">
                 <!-- Tombol trigger modal -->
-                <button id="formModalBtn" data-action="{{ route('trx.submit') }}" class="btn btn-sm btn-primary shadow-sm formModalBtn">
+                <button id="formModalBtn" data-action="{{ route('trx.submit') }}" class="btn btn-sm btn-primary formModalBtn">
                     Tambah Transaksi
                 </button>
-
-                {{-- <button id="formModal" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah Santri Baru</button> --}}
             </div>
         </div>
         <div class="card-body">
@@ -26,12 +127,12 @@
                             <th>No.</th>
                             <th>TXID</th>
                             <th>Tanggal</th>
+                            <th>Debet/Kredit</th>
+                            <th>Dompet</th>
+                            <th>Kategori</th>
+                            <th>Nominal</th>
                             <th>Penerima/Pengirim</th>
                             <th>Deskripsi</th>
-                            <th>Nominal</th>
-                            <th>Debet/Kredit</th>
-                            <th>Kategori</th>
-                            <th>Dompet</th>
                             <th>Lampiran</th>
                             <th>Edit</th>
                             <th>Hapus</th>
@@ -41,13 +142,13 @@
                         <tbody>
                             <td>{{ $no+1 }}</td>
                             <td>{{ $data->transaction_id }}</td>
-                            <td>{{ $data->transaction_at }}</td>
+                            <td>{{ $data->transaction_at->format('d M Y') }}</td>
+                            <td>{{ $data->type }}</td>
+                            <td>{{ $data->wallet->name }}</td>
+                            <td>{{ $data->payable->name }}</td>
+                            <td>{{ $data->amount }}</td>
                             <td>{{ $data->contact_name->name }}</td>
                             <td>{{ $data->meta }}</td>
-                            <td>{{ $data->amount }}</td>
-                            <td>{{ $data->type }}</td>
-                            <td>{{ $data->payable->name }}</td>
-                            <td>{{ $data->wallet->name }}</td>
                             <td>
                                 <button type="button" class="btn btn-sm btn-primary" 
                                 onclick="showAttachmentModal('{{ $data->getFirstMediaUrl('transactions') }}')">

@@ -18,6 +18,10 @@ class Donor extends Model
         'status_id'
     ];
 
+    protected $casts = [
+        'register_date' => 'datetime',
+    ];
+
     public function package () {
         return $this->belongsTo(Option::class, 'package_id');
     }

@@ -1,21 +1,22 @@
 @extends('admin._layout.main')
-@section('title', __('TPQ At-Taqwa'))
+@section('title', __('Santri - TPQ At-Taqwa'))
+@section('heading', __('Data Santri'))
 @section('content')
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data Santri</h1>
-            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Ekspor</a> --}}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4 flex-wrap">
+        <h1 class="h3 mb-2 text-gray-800">Santri</h1>
+        <x-date-range-filter/>                                            
     </div>
-    <div class="card shadow mb-4">
+    <div class="card mb-4">
         <div class="card-header py-3">
             <div class="d-sm-flex align-items-center justify-content-end">
                 <!-- Tombol trigger modal -->
-                <button id="openModalStudentBtn" class="btn btn-sm btn-primary shadow-sm openModalStudentBtn">
-                    Tambah Santri Baru
-                </button>
-
-                {{-- <button id="modalStudent" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah Santri Baru</button> --}}
+                @auth
+                @if(auth()->user()->hasRole('admin') || auth()->user()->can('create student'))
+                    <button id="openModalStudentBtn" class="btn btn-sm btn-primary openModalStudentBtn">
+                        Tambah Santri Baru
+                    </button>
+                @endif
+                @endauth
             </div>
         </div>
         <div class="card-body">
@@ -44,7 +45,7 @@
                             <td>{{ $data->cid }}</td>
                             <td>{{ $data->name }}</td>
                             <td>{{ $data->address }}</td>
-                            <td>{{ $data->place_birth }}, {{ $data->date_birth }}</td>
+                            <td>{{ $data->place_birth }}, {{ $data->date_birth->format('d M Y') }}</td>
                             <td>{{ $data->classes->name }}</td>
                             <td>{{ $data->guardian_name }}</td>
                             <td>
@@ -52,31 +53,39 @@
                                     {{ $data->guardian_number }}
                                 </a>
                             </td>
-                            <td>{{ $data->register_date }}</td>
+                            <td>{{ $data->register_date->format('d M Y') }}</td>
                             <td>{{ $data->schools->name }}</td>
                             <td>{{ $data->statuses->name }}</td>
                             <td>
-                                <button type="button" id="openModalStudentBtn" class="btn btn-sm btn-primary openModalStudentBtn btn-edit"
-                                    data-id="{{ $data->id }}"
-                                    data-cid="{{ $data->cid }}"
-                                    data-name="{{ $data->name }}"
-                                    data-address="{{ $data->address }}"
-                                    data-place_birth="{{ $data->place_birth }}"
-                                    data-date_birth="{{ $data->date_birth }}"
-                                    data-class_id="{{ $data->class_id }}"
-                                    data-guardian_name="{{ $data->guardian_name }}"
-                                    data-guardian_number="{{ $data->guardian_number }}"
-                                    data-register_date="{{ $data->register_date }}"
-                                    data-school_id="{{ $data->school_id }}"
-                                    data-status="{{ $data->status_id }}"
-                                    data-url="{{ route('student.submit', $data->id) }}">
-                                    <i class="ri-pencil-fill"></i>
-                                </button>
+                                @auth
+                                @if(auth()->user()->hasRole('admin') || auth()->user()->can('update student'))
+                                    <button type="button" id="openModalStudentBtn" class="btn btn-sm btn-primary openModalStudentBtn btn-edit"
+                                        data-id="{{ $data->id }}"
+                                        data-cid="{{ $data->cid }}"
+                                        data-name="{{ $data->name }}"
+                                        data-address="{{ $data->address }}"
+                                        data-place_birth="{{ $data->place_birth }}"
+                                        data-date_birth="{{ $data->date_birth }}"
+                                        data-class_id="{{ $data->class_id }}"
+                                        data-guardian_name="{{ $data->guardian_name }}"
+                                        data-guardian_number="{{ $data->guardian_number }}"
+                                        data-register_date="{{ $data->register_date }}"
+                                        data-school_id="{{ $data->school_id }}"
+                                        data-status="{{ $data->status_id }}"
+                                        data-url="{{ route('student.submit', $data->id) }}">
+                                        <i class="ri-pencil-fill"></i>
+                                    </button>
+                                @endif
+                                @endauth
                             <td>
-                                <button type="button" class="btn btn-sm btn-danger" 
-                                    onclick="confirmDelete({{ $data->id }}, '{{ $data->name }}', 'students')">
-                                    <i class="ri-delete-bin-fill"></i>
-                                </button>
+                                @auth
+                                @if(auth()->user()->hasRole('admin') || auth()->user()->can('delete student'))
+                                    <button type="button" class="btn btn-sm btn-danger" 
+                                        onclick="confirmDelete({{ $data->id }}, '{{ $data->name }}', 'students')">
+                                        <i class="ri-delete-bin-fill"></i>
+                                    </button>
+                                @endif
+                                @endauth
                             </td>
                         </tbody>
                     @endforeach
@@ -135,8 +144,8 @@
 
                         field.options.forEach(opt => {
                             const option = document.createElement('option');
-                            option.value = opt.value;
-                            option.innerText = opt.label;
+                            option.value = opt.id;
+                            option.innerText = opt.name;
                             input.appendChild(option);
                         });
 

@@ -1,14 +1,13 @@
 @extends('admin._layout.main')
 @section('title', __('Pengaturan -  TPQ At-Taqwa'))
+@section('heading', __('Pengaturan'))
 @section('content')
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Pengaturan</h1>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4 flex-wrap">
+        <h1 class="h3 mb-2 text-gray-800">Pengaturan</h1>                                         
     </div>
-
     <div class="row">
         <div class="col-6">
-            <div class="card shadow mb-4">
+            <div class="card mb-4">
                 <div class="card-header py-3">
                     <div class="d-sm-flex align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Paket Donatur</h6>
@@ -54,7 +53,51 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="card shadow mb-4">
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Kategori Pegawai</h6>
+                        <button id="addEmployeeCategory" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Edit</th>
+                                    <th>Hapus</th>
+                                </tr>
+                            </thead>
+
+                            @foreach ($employeeCategory as $data)
+                                <tbody>
+                                    <td>{{ $data->name }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-primary btn-edit-entity"
+                                            data-id="{{ $data->id }}"
+                                            data-name="{{ $data->name }}"
+                                            data-type="employee category"
+                                            data-url="{{ route('options.update', $data->id) }}">
+                                            Edit
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" 
+                                            onclick="confirmDelete({{ $data->id }}, '{{ $data->name }}', 'options')">
+                                            <i class="ri-delete-bin-fill"></i>
+                                        </button>
+                                    </td>
+                                </tbody>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- <div class="col-6">
+            <div class="card mb-4">
                 <div class="card-header py-3">
                     <div class="d-sm-flex align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Status Donatur</h6>
@@ -95,12 +138,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <div class="row">
-        <div class="col-6">
-            <div class="card shadow mb-4">
+        {{-- <div class="col-6">
+            <div class="card mb-4">
                 <div class="card-header py-3">
                     <div class="d-sm-flex align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Status Santri</h6>
@@ -142,55 +185,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="col-6">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <div class="d-sm-flex align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Kategori Kelas</h6>
-                        <button id="addClass" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah</button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>Nama Kelas</th>
-                                    <th>Edit</th>
-                                    <th>Hapus</th>
-                                </tr>
-                            </thead>
-                            @foreach ($class as $data)
-                                <tbody>
-                                    <td>{{ $data->name }}</td>
-                                    <td>
-                                        <button type="button" id="editClass" class="btn btn-sm btn-primary btn-edit-entity"
-                                            data-id="{{ $data->id }}"
-                                            data-name="{{ $data->name }}"
-                                            data-type="class"
-                                            data-url="{{ route('options.update', $data->id) }}">
-                                            Edit
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-danger" 
-                                            onclick="confirmDelete({{ $data->id }}, '{{ $data->name }}', 'options')">
-                                            <i class="ri-delete-bin-fill"></i>
-                                        </button>
-                                    </td>
-                                </tbody>
-                            @endforeach
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-6">
-            <div class="card shadow mb-4">
+            <div class="card mb-4">
                 <div class="card-header py-3">
                     <div class="d-sm-flex align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Daftar Sekolah</h6>
@@ -234,11 +231,11 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="card shadow mb-4">
+            <div class="card mb-4">
                 <div class="card-header py-3">
                     <div class="d-sm-flex align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Daftar Dompet</h6>
-                        <button id="addWallet" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah</button>
+                        <h6 class="m-0 font-weight-bold text-primary">Kategori Kelas</h6>
+                        <button id="addClass" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah</button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -246,23 +243,19 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>Nama Dompet</th>
-                                    <th>Jenis</th>
+                                    <th>Nama Kelas</th>
                                     <th>Edit</th>
                                     <th>Hapus</th>
                                 </tr>
                             </thead>
-
-                            @foreach ($wallet as $data)
+                            @foreach ($class as $data)
                                 <tbody>
                                     <td>{{ $data->name }}</td>
-                                    <td>{{ $data->wallet_type }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-sm btn-primary btn-edit-entity"
+                                        <button type="button" id="editClass" class="btn btn-sm btn-primary btn-edit-entity"
                                             data-id="{{ $data->id }}"
                                             data-name="{{ $data->name }}"
-                                            data-wallet_type="{{ $data->wallet_type }}"
-                                            data-type="wallet"
+                                            data-type="class"
                                             data-url="{{ route('options.update', $data->id) }}">
                                             Edit
                                         </button>
@@ -281,11 +274,9 @@
             </div>
         </div>
     </div>
-
-
     <div class="row">
         <div class="col-6">
-            <div class="card shadow mb-4">
+            <div class="card mb-4">
                 <div class="card-header py-3">
                     <div class="d-sm-flex align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Kategori Pemasukan</h6>
@@ -329,7 +320,7 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="card shadow mb-4">
+            <div class="card mb-4">
                 <div class="card-header py-3">
                     <div class="d-sm-flex align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Kategori Pengeluaran</h6>
@@ -375,8 +366,103 @@
     </div>
 
     <div class="row">
+
         <div class="col-6">
-            <div class="card shadow mb-4">
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Daftar Dompet</h6>
+                        <button id="addWallet" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Nama Dompet</th>
+                                    <th>Jenis</th>
+                                    <th>Edit</th>
+                                    <th>Hapus</th>
+                                </tr>
+                            </thead>
+
+                            @foreach ($wallet as $data)
+                                <tbody>
+                                    <td>{{ $data->name }}</td>
+                                    <td>{{ $data->wallet_type }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-primary btn-edit-entity"
+                                            data-id="{{ $data->id }}"
+                                            data-name="{{ $data->name }}"
+                                            data-wallet_type="{{ $data->wallet_type }}"
+                                            data-type="wallet"
+                                            data-url="{{ route('options.update', $data->id) }}">
+                                            Edit
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" 
+                                            onclick="confirmDelete({{ $data->id }}, '{{ $data->name }}', 'options')">
+                                            <i class="ri-delete-bin-fill"></i>
+                                        </button>
+                                    </td>
+                                </tbody>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Daftar Status</h6>
+                        <button id="addStatus" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Nama Status</th>
+                                    <th>Edit</th>
+                                    <th>Hapus</th>
+                                </tr>
+                            </thead>
+
+                            @foreach ($status as $data)
+                                <tbody>
+                                    <td>{{ $data->name }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-primary btn-edit-entity"
+                                            data-id="{{ $data->id }}"
+                                            data-name="{{ $data->name }}"
+                                            data-type="status"
+                                            data-url="{{ route('options.update', $data->id) }}">
+                                            Edit
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" 
+                                            onclick="confirmDelete({{ $data->id }}, '{{ $data->name }}', 'options')">
+                                            <i class="ri-delete-bin-fill"></i>
+                                        </button>
+                                    </td>
+                                </tbody>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- <div class="row">
+        <div class="col-6">
+            <div class="card mb-4">
                 <div class="card-header py-3">
                     <div class="d-sm-flex align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Status Pegawai</h6>
@@ -419,51 +505,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <div class="d-sm-flex align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Kategori Pegawai</h6>
-                        <button id="addEmployeeCategory" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tambah</button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>Nama</th>
-                                    <th>Edit</th>
-                                    <th>Hapus</th>
-                                </tr>
-                            </thead>
-
-                            @foreach ($employeeCategory as $data)
-                                <tbody>
-                                    <td>{{ $data->name }}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-primary btn-edit-entity"
-                                            data-id="{{ $data->id }}"
-                                            data-name="{{ $data->name }}"
-                                            data-type="employee category"
-                                            data-url="{{ route('options.update', $data->id) }}">
-                                            Edit
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-danger" 
-                                            onclick="confirmDelete({{ $data->id }}, '{{ $data->name }}', 'options')">
-                                            <i class="ri-delete-bin-fill"></i>
-                                        </button>
-                                    </td>
-                                </tbody>
-                            @endforeach
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </div> --}}
 
 @section('script')
 <script>
@@ -573,6 +615,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Tambah Employee Category
     document.getElementById("addEmployeeCategory")?.addEventListener("click", function () {
         openModal("Tambah Kategori Pegawai", "{{ route('options.submit') }}", getFieldsHtml("employee category"));
+    });
+
+    // Tambah Status
+    document.getElementById("addStatus")?.addEventListener("click", function () {
+        openModal("Tambah Status", "{{ route('options.submit') }}", getFieldsHtml("status"));
     });
 
 
