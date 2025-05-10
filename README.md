@@ -23,7 +23,7 @@ This project is a Laravel-based application with authentication and email functi
 
 ## Installation
 
-# 1. Clone the repository
+**1. Clone the repository**
 
 Clone this project to your local machine using Git:
 
@@ -31,14 +31,14 @@ Clone this project to your local machine using Git:
 git clone https://github.com/hendrypk/simTPA.git
 ```
 
-# 2. Install PHP Dependencies
+**2. Install PHP Dependencies**
 Navigate to the project directory and run the following command to install PHP dependencies using:
 
 ```bash
 composer install
 ```
 
-# 3. Install Frontend Dependencies
+**3. Install Frontend Dependencies**
 install the required npm packages, then run the following command to build the frontend assets:
 
 ```bash
@@ -49,7 +49,7 @@ npm install
 npm run build
 ```
 
-# 4. Install Laravel Media Library
+**4. Install Laravel Media Library**
 Media Library can be installed via Composer:
 
 ```bash
@@ -59,7 +59,7 @@ composer require "spatie/laravel-medialibrary"
 ```bash
 php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="medialibrary-migrations"
 ```
-# 5. Install Laravel Permission
+**5. Install Laravel Permission**
 ```bash
 composer require spatie/laravel-permission
 ```
@@ -68,7 +68,7 @@ composer require spatie/laravel-permission
 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
 ```
 
-# 6. Set Up The Environment
+**6. Set Up The Environment**
 Copy the .env.example file to .env, then generate the application key:
 
 ```bash
@@ -79,14 +79,14 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-# 7. Set Up The Database
+**7. Set Up The Database**
 Run the migration and seed the database:
 
 ```bash
 php artisan migrate --seed
 ```
 
-# 8. Configure Mailtrap for Email Functionality
+**8. Configure Mailtrap for Email Functionality**
 For email reset password functionality, you need to set up Mailtrap in your .env file. Follow the steps below:
 
 - Create a Mailtrap account at Mailtrap.
