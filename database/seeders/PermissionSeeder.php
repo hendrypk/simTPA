@@ -13,36 +13,36 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $entities = [
-            'student',
-            'donor',
-            'employee',
-            'donate',
-            'transaction',
-            'financial_planning',
-            'setting',
-            'permission',
-            'role',
-            'dashboard',
-            'vendor'
-        ];
+        // $entities = [
+        //     'student',
+        //     'donor',
+        //     'employee',
+        //     'donate',
+        //     'transaction',
+        //     'financial_planning',
+        //     'setting',
+        //     'permission',
+        //     'role',
+        //     'dashboard',
+        //     'vendor'
+        // ];
 
-        $actions = ['view', 'create', 'update', 'delete'];
+        // $actions = ['view', 'create', 'update', 'delete'];
 
-        foreach ($entities as $entity) {
-            foreach ($actions as $action) {
-                $permissionName = "$action $entity";
-                Permission::updateOrCreate(
-                    [
-                        'name' => $permissionName,
-                        'guard_name' => 'web',
-                    ],
-                    [
-                        'group_name' => $entity,
-                    ]
-                );
-            }
-        }
+        // foreach ($entities as $entity) {
+        //     foreach ($actions as $action) {
+        //         $permissionName = "$action $entity";
+        //         Permission::updateOrCreate(
+        //             [
+        //                 'name' => $permissionName,
+        //                 'guard_name' => 'web',
+        //             ],
+        //             [
+        //                 'group_name' => $entity,
+        //             ]
+        //         );
+        //     }
+        // }
         
     }
 }

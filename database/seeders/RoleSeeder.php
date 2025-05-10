@@ -14,11 +14,11 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = Role::firstOrCreate(['name' => 'admin']);
-        $user = Role::firstOrCreate(['name' => 'user']);
+        // $admin = Role::firstOrCreate(['name' => 'admin']);
+        // $user = Role::firstOrCreate(['name' => 'user']);
 
-        $admin->syncPermissions(Permission::all());
-        $user->syncPermissions(Permission::where('name', 'LIKE', 'view %')->get());
+        // $admin->syncPermissions(Permission::all());
+        // $user->syncPermissions(Permission::where('name', 'LIKE', 'view %')->get());
 
     }
 }

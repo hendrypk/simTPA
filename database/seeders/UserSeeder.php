@@ -15,19 +15,19 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::updateOrCreate(
-            ['email' => 'hendryputra934@gmail.com'],
-            [
-                'name' => 'superadmin',
-                'username' => 'superadmin',
-                'phone' => '085842233005',
-                'password' => Hash::make('superadmin'),
-            ]
-        );
+        // $user = User::updateOrCreate(
+        //     ['email' => 'hendryputra934@gmail.com'],
+        //     [
+        //         'name' => 'superadmin',
+        //         'username' => 'superadmin',
+        //         'phone' => '085842233005',
+        //         'password' => Hash::make('superadmin'),
+        //     ]
+        // );
 
-        $adminRole = Role::where('name', 'admin')->first();
-        if ($adminRole) {
-            $user->assignRole($adminRole);
-        }
+        // $adminRole = Role::where('name', 'admin')->first();
+        // if ($adminRole) {
+        //     $user->assignRole($adminRole);
+        // }
     }
 }
