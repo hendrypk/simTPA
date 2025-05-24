@@ -38,7 +38,7 @@ class StudentController extends Controller
     
         $latestCid = Contact::where('type', Contact::TYPE_STUDENT)
             ->whereNotNull('cid')
-            ->whereRaw("cid REGEXP '^D[0-9]{2}[0-9]{3}[0-9]{3}$'")
+            ->whereRaw("cid REGEXP '^S[0-9]{2}[0-9]{3}[0-9]{3}$'")
             ->orderByDesc('cid')
             ->value('cid');
 

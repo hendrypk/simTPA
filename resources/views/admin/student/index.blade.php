@@ -4,7 +4,7 @@
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4 flex-wrap">
         <h1 class="h3 mb-2 text-gray-800">Santri</h1>
-        <x-date-range-filter/>                                            
+        {{-- <x-date-range-filter/>                                             --}}
     </div>
     <div class="card mb-4">
         <div class="card-header py-3">
@@ -65,11 +65,11 @@
                                         data-name="{{ $data->name }}"
                                         data-address="{{ $data->address }}"
                                         data-place_birth="{{ $data->place_birth }}"
-                                        data-date_birth="{{ $data->date_birth }}"
+                                        data-date_birth="{{ $data->date_birth->format('Y-m-d') }}"
                                         data-class_id="{{ $data->class_id }}"
                                         data-guardian_name="{{ $data->guardian_name }}"
                                         data-guardian_number="{{ $data->guardian_number }}"
-                                        data-register_date="{{ $data->register_date }}"
+                                        data-register_date="{{ $data->register_date->format('Y-m-d') }}"
                                         data-school_id="{{ $data->school_id }}"
                                         data-status="{{ $data->status_id }}"
                                         data-url="{{ route('student.submit', $data->id) }}">
@@ -95,86 +95,175 @@
     </div>
 
     <script>
+        // document.querySelectorAll('.openModalStudentBtn').forEach(button => {
+        //     button.addEventListener('click', function () {
+        //         const classOptions = @json($class);
+        //         const schoolOptions = @json($school);
+        //         const statusOptions = @json($status);
+        //         const fields = [
+        //             { name: 'id', type: 'hidden' },
+        //             { label: 'Nama', name: 'name', type: 'text' },
+        //             { label: 'Alamat', name: 'address', type: 'text', placeholder: 'Contoh: Bandung' },
+        //             { label: 'Tempat Lahir', name: 'place_birth', type: 'text', placeholder: 'Contoh: Bandung' },
+        //             { label: 'Tanggal Lahir', name: 'date_birth', type: 'date' },
+        //             { label: 'Kelas', name: 'class_id', type: 'select', options: classOptions },
+        //             { label: 'Nama Wali', name: 'guardian_name', type: 'text' },
+        //             { label: 'WhatsApp', name: 'guardian_number', type: 'text', placeholder: '08xxxxxxxxxx' },
+        //             { label: 'Tanggal Masuk', name: 'register_date', type: 'date' },
+        //             { label: 'Sekolah', name: 'school_id', type: 'select', options: schoolOptions },
+        //             { label: 'Status', name: 'status', type: 'select', options: statusOptions },
+        //         ];
+
+        //         const entityFields = document.getElementById('entityFields');
+        //         entityFields.innerHTML = ''; // Kosongkan dulu
+
+        //         let row = document.createElement('div');
+        //         row.className = 'row';
+        //         fields.forEach((field, index) => {
+        //             if (field.type === 'hidden') {
+        //                 const input = document.createElement('input');
+        //                 input.type = 'hidden';
+        //                 input.name = field.name;
+        //                 row.appendChild(input);
+        //                 return;
+        //             }
+
+        //             const col = document.createElement('div');
+        //             col.className = 'col-md-6 mb-3';
+
+        //             const label = document.createElement('label');
+        //             label.className = 'form-label';
+        //             label.innerText = field.label;
+        //             col.appendChild(label);
+
+        //             let input;
+        //             if (field.type === 'select') {
+        //                 input = document.createElement('select');
+        //                 input.name = field.name;
+        //                 input.className = 'form-control';
+
+        //                 field.options.forEach(opt => {
+        //                     const option = document.createElement('option');
+        //                     option.value = opt.id;
+        //                     option.innerText = opt.name;
+        //                     input.appendChild(option);
+        //                 });
+
+        //             } else {
+        //                 input = document.createElement('input');
+        //                 input.type = field.type;
+        //                 input.name = field.name;
+        //                 input.className = 'form-control';
+        //                 input.placeholder = field.placeholder || '';
+        //             }
+
+        //             col.appendChild(input);
+        //             row.appendChild(col);
+
+        //             // Tambahkan row baru setiap 2 kolom (optional, Bootstrap handle otomatis)
+        //         });
+
+        //         entityFields.appendChild(row);
+
+
+        //         // Judul modal disesuaikan
+        //         const isEdit = button.classList.contains('btn-edit');
+        //         document.getElementById('modalStudentLabel').innerText = isEdit ? 'Edit Santri' : 'Tambah Santri Baru';
+
+        //         // Tampilkan modal
+        //         const modal = new bootstrap.Modal(document.getElementById('modalStudent'));
+        //         modal.show();
+        //     });
+        // });
         document.querySelectorAll('.openModalStudentBtn').forEach(button => {
-            button.addEventListener('click', function () {
-                const classOptions = @json($class);
-                const schoolOptions = @json($school);
-                const statusOptions = @json($status);
-                const fields = [
-                    { name: 'id', type: 'hidden' },
-                    { label: 'Nama', name: 'name', type: 'text' },
-                    { label: 'Alamat', name: 'address', type: 'text', placeholder: 'Contoh: Bandung' },
-                    { label: 'Tempat Lahir', name: 'place_birth', type: 'text', placeholder: 'Contoh: Bandung' },
-                    { label: 'Tanggal Lahir', name: 'date_birth', type: 'date' },
-                    { label: 'Kelas', name: 'class_id', type: 'select', options: classOptions },
-                    { label: 'Nama Wali', name: 'guardian_name', type: 'text' },
-                    { label: 'WhatsApp', name: 'guardian_number', type: 'text', placeholder: '08xxxxxxxxxx' },
-                    { label: 'Tanggal Masuk', name: 'register_date', type: 'date' },
-                    { label: 'Sekolah', name: 'school_id', type: 'select', options: schoolOptions },
-                    { label: 'Status', name: 'status', type: 'select', options: statusOptions },
-                ];
+    button.addEventListener('click', function () {
+        const classOptions = @json($class);
+        const schoolOptions = @json($school);
+        const statusOptions = @json($status);
 
-                const entityFields = document.getElementById('entityFields');
-                entityFields.innerHTML = ''; // Kosongkan dulu
+        const fields = [
+            { name: 'id', type: 'hidden' },
+            { label: 'Nama', name: 'name', type: 'text' },
+            { label: 'Alamat', name: 'address', type: 'text', placeholder: 'Contoh: Bandung' },
+            { label: 'Tempat Lahir', name: 'place_birth', type: 'text', placeholder: 'Contoh: Bandung' },
+            { label: 'Tanggal Lahir', name: 'date_birth', type: 'date' },
+            { label: 'Kelas', name: 'class_id', type: 'select', options: classOptions },
+            { label: 'Nama Wali', name: 'guardian_name', type: 'text' },
+            { label: 'WhatsApp', name: 'guardian_number', type: 'text', placeholder: '08xxxxxxxxxx' },
+            { label: 'Tanggal Masuk', name: 'register_date', type: 'date' },
+            { label: 'Sekolah', name: 'school_id', type: 'select', options: schoolOptions },
+            { label: 'Status', name: 'status', type: 'select', options: statusOptions },
+        ];
 
-                let row = document.createElement('div');
-                row.className = 'row';
-                fields.forEach((field, index) => {
-                    if (field.type === 'hidden') {
-                        const input = document.createElement('input');
-                        input.type = 'hidden';
-                        input.name = field.name;
-                        row.appendChild(input);
-                        return;
+        const entityFields = document.getElementById('entityFields');
+        entityFields.innerHTML = '';
+
+        let row = document.createElement('div');
+        row.className = 'row';
+
+        fields.forEach(field => {
+            const fieldValue = button.dataset[field.name];
+
+            if (field.type === 'hidden') {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = field.name;
+                input.value = fieldValue || '';
+                row.appendChild(input);
+                return;
+            }
+
+            const col = document.createElement('div');
+            col.className = 'col-md-6 mb-3';
+
+            const label = document.createElement('label');
+            label.className = 'form-label';
+            label.innerText = field.label;
+            col.appendChild(label);
+
+            let input;
+
+            if (field.type === 'select') {
+                input = document.createElement('select');
+                input.name = field.name;
+                input.className = 'form-control';
+
+                field.options.forEach(opt => {
+                    const option = document.createElement('option');
+                    option.value = opt.id;
+                    option.innerText = opt.name;
+                    if (String(fieldValue) === String(opt.id)) {
+                        option.selected = true;
                     }
-
-                    const col = document.createElement('div');
-                    col.className = 'col-md-6 mb-3';
-
-                    const label = document.createElement('label');
-                    label.className = 'form-label';
-                    label.innerText = field.label;
-                    col.appendChild(label);
-
-                    let input;
-                    if (field.type === 'select') {
-                        input = document.createElement('select');
-                        input.name = field.name;
-                        input.className = 'form-control';
-
-                        field.options.forEach(opt => {
-                            const option = document.createElement('option');
-                            option.value = opt.id;
-                            option.innerText = opt.name;
-                            input.appendChild(option);
-                        });
-
-                    } else {
-                        input = document.createElement('input');
-                        input.type = field.type;
-                        input.name = field.name;
-                        input.className = 'form-control';
-                        input.placeholder = field.placeholder || '';
-                    }
-
-                    col.appendChild(input);
-                    row.appendChild(col);
-
-                    // Tambahkan row baru setiap 2 kolom (optional, Bootstrap handle otomatis)
+                    input.appendChild(option);
                 });
+            } else {
+                input = document.createElement('input');
+                input.type = field.type;
+                input.name = field.name;
+                input.className = 'form-control';
+                input.placeholder = field.placeholder || '';
+                input.value = fieldValue || '';
+            }
 
-                entityFields.appendChild(row);
-
-
-                // Judul modal disesuaikan
-                const isEdit = button.classList.contains('btn-edit');
-                document.getElementById('modalStudentLabel').innerText = isEdit ? 'Edit Santri' : 'Tambah Santri Baru';
-
-                // Tampilkan modal
-                const modal = new bootstrap.Modal(document.getElementById('modalStudent'));
-                modal.show();
-            });
+            col.appendChild(input);
+            row.appendChild(col);
         });
+
+        entityFields.appendChild(row);
+
+        // Set action form
+        // document.getElementById('formStudent').action = button.getAttribute('data-url');
+
+        // Ubah judul
+        document.getElementById('modalStudentLabel').innerText = 'Edit Santri';
+
+        // Tampilkan modal
+        const modal = new bootstrap.Modal(document.getElementById('modalStudent'));
+        modal.show();
+    });
+});
+
 
         // document.getElementById('openModalStudentBtn').addEventListener('click', function () {
         //     const classOptions = @json($class);
