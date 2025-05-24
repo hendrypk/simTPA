@@ -76,7 +76,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <form method="GET" class="mb-4 w-100" id="filterForm">
                             <div class="row g-2 align-items-end">
                                 <div class="col-md-2">
@@ -102,14 +102,11 @@
                         
                                 <div class="col-md-2">
                                     <label>Rentang Tanggal</label>
-                                    {{-- pastikan komponen x-date-range-filter mengisi input name="date_range" --}}
                                     <x-date-range-filter onchange="document.getElementById('filterForm').submit();"/>
                                 </div>
                             </div>
                         </form>
-                        
-
-                    </div>
+                    </div> --}}
     <div class="card mb-4">
         <div class="card-header py-3">
             <div class="d-sm-flex align-items-center justify-content-end">
