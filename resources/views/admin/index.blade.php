@@ -2,27 +2,11 @@
 @section('title', __('TPQ At-Taqwa'))
 @section('heading', __('Dashboard'))
 @section('content')
-                    @push('styles')
-                        <style>
-                            .input-group .form-control {
-                                min-width: 220px;
-                            }
-                            @media (max-width: 576px) {
-                                .input-group {
-                                    flex-direction: column;
-                                    align-items: stretch;
-                                }
-                                .input-group-append {
-                                    margin-left: 0;
-                                    margin-top: 0.5rem;
-                                }
-                            }
-                        </style>
-                    @endpush
 
                     <div class="d-sm-flex align-items-center justify-content-between mb-4 flex-wrap">
                         <h1 class="h3 mb-2 text-gray-800">Dashboard</h1>
-                        <x-date-range-filter/>                                            
+        <x-date-range-filter/>                                     
+
                     </div>
                 
                     <!-- Content Row -->
@@ -81,11 +65,11 @@
                         </div>
 
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning h-100 py-2">
+                            <div class="card border-left-danger h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                                                 Sisa Saldo</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $trx['remaining'] }}</div>
                                         </div>
@@ -142,23 +126,12 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Santri
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $contact['total_student'] }}</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Santri</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $contact['total_student'] }}</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -167,12 +140,12 @@
 
                         <!-- Pending Requests Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning h-100 py-2">
+                            <div class="card border-left-danger h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Total Pengajar</div>
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                Karyawan</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $contact['total_employee'] }}</div>
                                         </div>
                                         <div class="col-auto">

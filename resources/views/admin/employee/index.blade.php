@@ -4,7 +4,7 @@
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4 flex-wrap">
         <h1 class="h3 mb-2 text-gray-800">Karyawan</h1>
-        <x-date-range-filter/>                                            
+        {{-- <x-date-range-filter/>                                             --}}
     </div>
     <div class="card mb-4">
         <div class="card-header py-3">

@@ -4737,9 +4737,9 @@ input[type="button"].btn-block {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh; /* Agar sidebar memenuhi tinggi layar */
-  overflow-y: auto; /* Tambahkan scrollbar jika kontennya panjang */
-  z-index: 1030; /* Pastikan di atas elemen lain */
+  height: 100vh;
+  overflow-y: auto; 
+  z-index: 1030; 
 }
 
 .breadcrumb {

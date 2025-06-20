@@ -56,11 +56,6 @@ trait DashboardTrait
     {
         $query = Contact::query();
 
-        if ($startDate && $endDate) {
-            // Assuming 'created_at' is the field you want to filter by. Adjust if needed.
-            $query->whereBetween('register_date', [Carbon::parse($startDate), Carbon::parse($endDate)]);
-        }
-
         $totalStudent = (clone $query)->where('type', Contact::TYPE_STUDENT)->count();
         $totalDonor = (clone $query)->where('type', Contact::TYPE_DONOR)->count();
         $totalEmployee = (clone $query)->where('type', Contact::TYPE_EMPLOYEE)->count();
